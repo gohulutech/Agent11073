@@ -11,6 +11,8 @@
 		4852FB3C288E600C0078C987 /* fsm.c in Sources */ = {isa = PBXBuildFile; fileRef = 4852FB3B288E600C0078C987 /* fsm.c */; };
 		4852FB42288E65910078C987 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = 4852FB41288E65910078C987 /* event.c */; };
 		485949642908DC5D008504DD /* tcp_client.c in Sources */ = {isa = PBXBuildFile; fileRef = 485949632908DC5D008504DD /* tcp_client.c */; };
+		48E3FC4D2918593400A0BDD3 /* mds.c in Sources */ = {isa = PBXBuildFile; fileRef = 48E3FC4C2918593400A0BDD3 /* mds.c */; };
+		48E3FC5129185BBF00A0BDD3 /* agent.c in Sources */ = {isa = PBXBuildFile; fileRef = 48E3FC5029185BBF00A0BDD3 /* agent.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +37,10 @@
 		4852FB41288E65910078C987 /* event.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = event.c; sourceTree = "<group>"; };
 		485949622908DC5D008504DD /* tcp_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tcp_client.h; sourceTree = "<group>"; };
 		485949632908DC5D008504DD /* tcp_client.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tcp_client.c; sourceTree = "<group>"; };
+		48E3FC4B2918593400A0BDD3 /* mds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mds.h; sourceTree = "<group>"; };
+		48E3FC4C2918593400A0BDD3 /* mds.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mds.c; sourceTree = "<group>"; };
+		48E3FC4F29185BBF00A0BDD3 /* agent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = agent.h; sourceTree = "<group>"; };
+		48E3FC5029185BBF00A0BDD3 /* agent.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agent.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,9 @@
 		480B878C2884AD2900EEEB8B /* Agent11073 */ = {
 			isa = PBXGroup;
 			children = (
+				48E3FC522918686B00A0BDD3 /* apdu */,
+				48E3FC4E29185BB100A0BDD3 /* agent */,
+				48E3FC4A2918592300A0BDD3 /* dim */,
 				483718352909601400C19F81 /* asn1 */,
 				4837183329095E6200C19F81 /* fsm */,
 				485949602908DBA5008504DD /* communication */,
@@ -101,6 +110,31 @@
 				485949632908DC5D008504DD /* tcp_client.c */,
 			);
 			path = communication;
+			sourceTree = "<group>";
+		};
+		48E3FC4A2918592300A0BDD3 /* dim */ = {
+			isa = PBXGroup;
+			children = (
+				48E3FC4B2918593400A0BDD3 /* mds.h */,
+				48E3FC4C2918593400A0BDD3 /* mds.c */,
+			);
+			path = dim;
+			sourceTree = "<group>";
+		};
+		48E3FC4E29185BB100A0BDD3 /* agent */ = {
+			isa = PBXGroup;
+			children = (
+				48E3FC4F29185BBF00A0BDD3 /* agent.h */,
+				48E3FC5029185BBF00A0BDD3 /* agent.c */,
+			);
+			path = agent;
+			sourceTree = "<group>";
+		};
+		48E3FC522918686B00A0BDD3 /* apdu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = apdu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,8 +194,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48E3FC4D2918593400A0BDD3 /* mds.c in Sources */,
 				4852FB42288E65910078C987 /* event.c in Sources */,
 				4852FB3C288E600C0078C987 /* fsm.c in Sources */,
+				48E3FC5129185BBF00A0BDD3 /* agent.c in Sources */,
 				485949642908DC5D008504DD /* tcp_client.c in Sources */,
 				480B878E2884AD2900EEEB8B /* main.c in Sources */,
 			);

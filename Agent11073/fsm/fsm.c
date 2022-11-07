@@ -6,12 +6,28 @@
 //
 
 #include "fsm.h"
+#include "../asn1/phd_types.h"
 
 systemState DisconnectedHandler(void) {
     return Disconnected;
 }
 
 systemState ConnectedUnassociatedHandler(void) {
+    // Build Aarq APDU
+    struct AARQ_apdu aarq_apdu;
+    aarq_apdu.assoc_version = 0x80000000;
+    aarq_apdu.data_proto_list.count = 1;
+    aarq_apdu.data_proto_list.length = 42;
+    
+    struct DataProto dataProto;
+    dataProto.data_proto_id = 0x5079;
+    dataProto.data_proto_info.length = 38;
+    intu8 dataProtoInfoValue[] = { 0x80, 0x00, 0x00, 0x00, 0xA0, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x08, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x40, 0x00, 0x00, 0x81, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00};
+    dataProto.data_proto_info.value = dataProtoInfoValue;
+    
+    aarq_apdu.data_proto_list.value = &dataProto;
+    // Send APDU over TCP
+    
     return ConnectedUnassociated;
 }
 
