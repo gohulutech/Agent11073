@@ -15,44 +15,20 @@
 #define SA struct sockaddr
 
 int main(int argc, const char * argv[]) {
-    systemState nextState = Disconnected;
-    systemEvent event;
-    systemState currentState;
-    int sockfd;
     char buff[MAX];
-    
-    sockfd = initializeTcpClient();
-    func(sockfd);
-    close(sockfd);
-    
-    int n;
-    
-    for (;;) {
-        bzero(buff, sizeof(buff));
-        printf("Enter the string : ");
-        n = 0;
+    int sockfd;
+    printf("Application started.\n");
+    sockfd = initializeFsm();
+    systemState nextState = Disconnected;
+    systemEvent event = TransportConnectIndication;
+    systemState currentState;
         
-        while ((buff[n++] = getchar()) != '\n')
-            ;
-        
-        write(sockfd, buff, sizeof(buff));
-        bzero(buff, sizeof(buff));
-        read(sockfd, buff, sizeof(buff));
-        printf("From Server : %s", buff);
-     
-        if ((strncmp(buff, "exit", 4)) == 0) {
-            printf("Client Exit...\n");
-            break;
-        }
-    }
-    
-    /*while(1)
+    while(1)
     {
-        event = ReadEvent();
         currentState = getNextState(event, nextState);
-    }*/
+        readBytes(sockfd);
+        event = ReadEvent();
+    }
     
     return 0;
 }
-
-

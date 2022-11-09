@@ -5,8 +5,14 @@
 //  Created by Hugo Arevalo on 25/07/22.
 //
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "fsm.h"
 #include "../asn1/phd_types.h"
+#include "../communication/tcp_client.h"
+
+int sockfd;
 
 systemState DisconnectedHandler(void) {
     return Disconnected;
@@ -26,7 +32,34 @@ systemState ConnectedUnassociatedHandler(void) {
     dataProto.data_proto_info.value = dataProtoInfoValue;
     
     aarq_apdu.data_proto_list.value = &dataProto;
+    
     // Send APDU over TCP
+    unsigned char *buffer = (unsigned char*)malloc(54);
+    buffer[0] = 0xE2;
+    buffer[1] = 0x00;
+    buffer[2] = 0x00;
+    buffer[3] = 0x32;
+    buffer[4] = (aarq_apdu.assoc_version >> 24) & 0xFF;
+    buffer[5] = (aarq_apdu.assoc_version >> 16) & 0xFF;
+    buffer[6] = (aarq_apdu.assoc_version >> 8) & 0xFF;
+    buffer[7] = aarq_apdu.assoc_version & 0xFF;
+    buffer[8] = (aarq_apdu.data_proto_list.count >> 8) & 0xFF;
+    buffer[9] = aarq_apdu.data_proto_list.count & 0xFF;
+    buffer[10] = (aarq_apdu.data_proto_list.length >> 8) & 0xFF;
+    buffer[11] = aarq_apdu.data_proto_list.length & 0xFF;
+    buffer[12] = (dataProto.data_proto_id >> 8) & 0xFF;
+    buffer[13] = dataProto.data_proto_id & 0xFF;
+    buffer[14] = (dataProto.data_proto_info.length >> 8) & 0xFF;
+    buffer[15] = dataProto.data_proto_info.length & 0xFF;
+    
+    for (int i = 0; i < dataProto.data_proto_info.length; i++) {
+        buffer[i + 16] = dataProtoInfoValue[i];
+    }
+        
+    sendBytes(sockfd, buffer);
+    
+    
+    free(buffer);
     
     return ConnectedUnassociated;
 }
@@ -122,4 +155,9 @@ systemState getNextState(systemEvent event, systemState nextState)
         return (*asStateMachine[nextState].stateMachineEventHandler)();
     }
     return Disconnected;
+}
+
+int initializeFsm(void) {
+    sockfd = initializeTcpClient();
+    return sockfd;
 }

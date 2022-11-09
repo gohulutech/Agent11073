@@ -30,6 +30,6 @@ struct MDS {
     RegCertDataList RegCertDataList;
     TypeVerList SystemTypeSpecList;
     RelativeTime ConfirmTimeout;
-}
+};
 
 #endif /* mds_h */

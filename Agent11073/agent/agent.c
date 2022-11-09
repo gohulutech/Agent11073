@@ -23,4 +23,6 @@ struct MDS CreateAgent(void) {
     agent.SystemId.length = 8;
     intu8 systemIdValue[8] = { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88 };
     agent.SystemId.value = systemIdValue;
-}
+    
+    return agent;
+};

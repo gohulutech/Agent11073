@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 
+
+
 typedef enum {
     Disconnected,
     ConnectedDisassociating,
@@ -53,5 +55,7 @@ typedef struct {
 } StateMachineStruct;
 
 systemState getNextState(systemEvent event, systemState nextState);
+
+int initializeFsm(void);
 
 #endif /* fsm_h */

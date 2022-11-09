@@ -17,6 +17,7 @@
 #define SA struct sockaddr
 
 #include "tcp_client.h"
+#include "../asn1/phd_types.h"
 
 void func(int sockfd)
 {
@@ -66,4 +67,26 @@ int initializeTcpClient(void) {
                          , "connection with the server failed...\n");
     
     return sockfd;
+}
+
+void sendBytes(int sockfd, unsigned char* buffer) {
+    printf("Sent bytes:\n");
+    for(int i = 0; i < MAX; i++)
+        printf("%02X ", buffer[i]);
+    
+    printf("\n");
+    
+    write(sockfd, buffer, 54);
+}
+
+void readBytes(int sockfd) {
+    char buff[MAX];
+    read(sockfd, buff, sizeof(buff));
+    
+    printf("Received bytes:\n");
+    
+    for(int i = 0; i < MAX; i++)
+        printf("%02X ", buff[i]);
+    
+    printf("\n");
 }
